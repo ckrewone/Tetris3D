@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Three.js Tetris</title>
+        <style>
+            body {margin: 0; padding: 0; overflow: hidden;}
+
+            #menu {
+                position: absolute;
+                width: 200px;
+                height: 200px;
+
+                top: 50%; left: 50%;
+                margin: -125px 0 0 -125px;
+
+                text-align: center;
+
+                border: 5px solid rgba(0,0,0,.9);
+                border-radius: 15px;
+
+                background-color: rgba(0,0,0,.7);
+                box-shadow: 2px 10px 5px #888;
+            }
+
+            #menu p {font-weight: bold; color: #fff;}
+            #menu p a {color: #fff;}
+            #points {
+                position: absolute;
+                width: 120px;
+                height: 16px;
+
+                padding: 20px;
+
+                top: 20px;
+                right: 80px;
+
+                border: 3px solid  rgba(0,0,0,.9);
+                border-radius: 15px;
+
+                background-color: rgba(0,0,0,.7);
+                box-shadow: 2px 10px 5px #888;
+
+                font-size: 14px;
+                font-weight: bold;
+                color: #fff;
+
+                text-align: center;
+
+                display: none;
+            }
+        </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <script type="text/javascript" src="js/Three.js"></script>
+    <script type="text/javascript" src="js/tetris.js"></script>
+    <script type="text/javascript" src="js/tetris.board.js"></script>
+    <script type="text/javascript" src="js/tetris.block.js"></script>
+   <!-- <script type="text/javascript" src="js/Stats.js"></script> -->
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	</head>
+    <body>
+        <div id="menu">
+            <h1 style="color: white;">Tetris 3D</h1>
+            <button id="play_button" type="button" class="btn btn-danger">Play</button>
+        </div>
+
+        <div id="points">
+            0
+        </div>
+
+
+        <script type="text/javascript">
+
+        </script>
+    </body>
+</html>
