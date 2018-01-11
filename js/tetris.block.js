@@ -138,3 +138,46 @@ Tetris.Block.petrify = function() {
     Tetris.addStaticBlock(Tetris.Block.position.x + shape[i].x, Tetris.Block.position.y + shape[i].y, Tetris.Block.position.z + shape[i].z);
   }
 };
+
+window.addEventListener('keydown', function (event) {
+  var key = event.which ? event.which : event.keyCode;
+
+  switch(key) {
+    case 38: // up (arrow)
+      Tetris.Block.move(0, 1, 0);
+      break;
+    case 40: // down (arrow)
+      Tetris.Block.move(0, -1, 0);
+      break;
+    case 37: // left(arrow)
+      Tetris.Block.move(-1, 0, 0);
+      break;
+    case 39: // right (arrow)
+      Tetris.Block.move(1, 0, 0);
+      break;
+    case 32: // space
+      Tetris.Block.move(0, 0, -1);
+      break;
+
+    case 87: // up (w)
+      Tetris.Block.rotate(90, 0, 0);
+      break;
+    case 83: // down (s)
+      Tetris.Block.rotate(-90, 0, 0);
+      break;
+
+    case 65: // left(a)
+      Tetris.Block.rotate(0, 0, 90);
+      break;
+    case 68: // right (d)
+      Tetris.Block.rotate(0, 0, -90);
+      break;
+
+    case 81: // (q)
+      Tetris.Block.rotate(0, 90, 0);
+      break;
+    case 69: // (e)
+      Tetris.Block.rotate(0, -90, 0);
+      break;
+  }
+}, false);
