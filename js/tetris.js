@@ -18,16 +18,8 @@ Tetris.init = function () {
     var WIDTH = window.innerWidth,
         HEIGHT = window.innerHeight;
 
-    var VIEW_ANGLE = 45,
-        ASPECT = WIDTH / HEIGHT,
-        NEAR = 0.1,
-        FAR = 10000;
-
     Tetris.renderer = new THREE.WebGLRenderer();
-    Tetris.camera = new THREE.PerspectiveCamera(VIEW_ANGLE,
-        ASPECT,
-        NEAR,
-        FAR);
+    Tetris.camera = new THREE.PerspectiveCamera(45,WIDTH/HEIGHT,0.1,10000);
     Tetris.scene = new THREE.Scene();
 
 
@@ -95,8 +87,6 @@ Tetris.animate = function() {
 
   Tetris.renderer.render(Tetris.scene, Tetris.camera);
 
-  // Tetris.stats.update();
-
   if(!Tetris.gameOver) window.requestAnimationFrame(Tetris.animate);
 }
 
@@ -133,7 +123,7 @@ Tetris.Board.FIELD = {EMPTY:0, ACTIVE:1, PETRIFIED:2};
 Object.freeze(Tetris.Board.FIELD);
 
 Tetris.Board.fields = [];
-
+// czyscimy plansze
 Tetris.Board.init = function (_x, _y, _z) {
     for (var x = 0; x < _x; x++) {
         Tetris.Board.fields[x] = [];
@@ -147,7 +137,7 @@ Tetris.Board.init = function (_x, _y, _z) {
 };
 
 
-//kolizje
+//sprawdzamy kolizje
 Tetris.Board.testCollision = function (ground_check) {
     var x, y, z, i;
 
@@ -169,6 +159,7 @@ Tetris.Board.testCollision = function (ground_check) {
     }
 };
 
+//sprawdzamy plansze
 Tetris.Board.checkCompleted = function() {
 	var x,y,z,x2,y2,z2, fields = Tetris.Board.fields;
 	var rebuild = false;
@@ -179,19 +170,19 @@ Tetris.Board.checkCompleted = function() {
 		sum = 0;
 		for(y = 0; y < fields[0].length; y++) {
 			for(x = 0; x < fields.length; x++) {
-				if(fields[x][y][z] === Tetris.Board.FIELD.PETRIFIED) sum++;
+				if(fields[x][y][z] === Tetris.Board.FIELD.PETRIFIED) sum++; //zliczamy bloki na planszy w ostatnim rzedzie
 			}
 		}
-
+//jezeli tak
 		if(sum == expected) {
-			bonus += 1 + bonus; // 1, 3, 7, 15...
+			bonus += 1 + bonus;
 
 			for(y2 = 0; y2 < fields[0].length; y2++) {
 				for(x2 = 0; x2 < fields.length; x2++) {
 					for(z2 = z; z2 < fields[0][0].length-1; z2++) {
 						Tetris.Board.fields[x2][y2][z2] = fields[x2][y2][z2+1];
 					}
-					Tetris.Board.fields[x2][y2][fields[0][0].length-1] = Tetris.Board.FIELD.EMPTY;
+					Tetris.Board.fields[x2][y2][fields[0][0].length-1] = Tetris.Board.FIELD.EMPTY; 
 				}
 			}
 			rebuild = true;
@@ -218,7 +209,11 @@ Tetris.Board.checkCompleted = function() {
 	}
 };
 
-
+Tetris.addPoints = function(points){
+  var number = parseInt($('#points').text());
+  number = number + points;
+  document.getElementById("points").innerHTML = number;
+}
 
 Tetris.Utils = {};
 
@@ -326,7 +321,7 @@ Tetris.Block.rotate = function (x, y, z) {
     }
 
     if (Tetris.Board.testCollision(false) === Tetris.Board.COLLISION.WALL) {
-        Tetris.Block.rotate(-x, -y, -z); // laziness FTW
+        Tetris.Block.rotate(-x, -y, -z);
     }
 };
 
@@ -343,11 +338,11 @@ Tetris.Block.move = function (x, y, z) {
     var collision = Tetris.Board.testCollision((z != 0));
 
     if (collision === Tetris.Board.COLLISION.WALL) {
-        Tetris.Block.move(-x, -y, 0); // laziness FTW
+        Tetris.Block.move(-x, -y, 0);
     }
     if (collision === Tetris.Board.COLLISION.GROUND) {
         Tetris.Block.hitBottom();
-		Tetris.Board.checkCompleted();
+		    Tetris.Board.checkCompleted();
     }
 };
 
@@ -366,8 +361,6 @@ Tetris.Block.hitBottom = function () {
 };
 
 
-
-
 window.addEventListener("load", Tetris.init);
 
 
@@ -375,7 +368,6 @@ window.addEventListener('keydown', function (event) {
     var key = event.which ? event.which : event.keyCode;
 
     switch (key) {
-        //case
 
         case 38: // up (arrow)
             Tetris.Block.move(0, 1, 0);
