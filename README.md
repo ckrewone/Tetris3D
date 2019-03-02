@@ -1,3 +1,2 @@
 # Tetris3D
-
-## This is simple game based on Three.js framework.
+ This is a simple game based on the Three.js.
